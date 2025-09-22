@@ -5,6 +5,11 @@ body,
   margin: 0;
 }
 
+@font-face {
+  font-family: "Oswald";
+  src: url("../assets/Oswald-Light.ttf") format("truetype");
+}
+
 canvas {
   display: block;
 }
@@ -47,6 +52,7 @@ canvas {
   cursor: pointer;
   user-select: none;
   color: white;
+  font-family: "Oswald", sans-serif !important;
 }
 
 .SwitchButton:hover {

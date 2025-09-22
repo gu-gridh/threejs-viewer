@@ -16,7 +16,7 @@ const options = {
     cameraPos: [2, 1.5, 3],
 
     //light
-    light: { color: 0xffffff, intensity: 0.05, position: [5, 10, 7] },
+    light: { color: 0xffffff, intensity: 0.05, position: [5, 10, 7] }, 
 
     //loaders
     dracoPath: '../lib/draco/',
