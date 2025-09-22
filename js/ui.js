@@ -28,10 +28,10 @@ hold($('rotL'), () => viewer.rotateLeft(ROT_STEP));
 hold($('rotR'), () => viewer.rotateRight(ROT_STEP));
 
 //zoom
-$('zoomIn')?.addEventListener('click', () => viewer.zoomIn(Z_CLICK));
-$('zoomOut')?.addEventListener('click', () => viewer.zoomOut(Z_CLICK));
-hold($('zoomIn'), () => viewer.zoomIn(Z_HOLD));
-hold($('zoomOut'), () => viewer.zoomOut(Z_HOLD));
+$('ZoomIn')?.addEventListener('click', () => viewer.zoomIn(Z_CLICK));
+$('ZoomOut')?.addEventListener('click', () => viewer.zoomOut(Z_CLICK));
+hold($('ZoomIn'), () => viewer.zoomIn(Z_HOLD));
+hold($('ZoomOut'), () => viewer.zoomOut(Z_HOLD));
 
 //fit, reset, auto
 $('fit')?.addEventListener('click', () => viewer.frameObject());

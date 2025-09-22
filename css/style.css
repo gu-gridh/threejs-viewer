@@ -9,30 +9,83 @@ canvas {
   display: block;
 }
 
-.toolbar {
+.interface-area {
   position: fixed;
-  top: 12px;
-  left: 12px;
-  z-index: 10;
+  left: 0;
+  right: 0;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 20px);
   display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  padding: 6px;
-  border-radius: 10px;
-  background: rgba(30, 30, 30, .7);
-  backdrop-filter: blur(4px);
+  justify-content: center;
+  pointer-events: none;
+  z-index: 9999;
 }
 
-.toolbar button {
-  border: 1px solid rgba(255, 255, 255, .2);
+.toolbar-bottom {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 8px;
+  border-top: 0.5px solid grey;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(3px);
+}
+
+/* buttons */
+.SwitchButton {
+  border: 0;
   background: transparent;
-  color: #fff;
-  font: 600 12px/1 system-ui;
-  padding: 6px 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 6px;
   cursor: pointer;
+  user-select: none;
+  color: white;
 }
 
-.toolbar button:hover {
-  background: rgba(255, 255, 255, .12);
+.SwitchButton:hover {
+  transform: scale(1.05);
+}
+
+/* icon imgs */
+.button-icon {
+  width: 25px;
+  height: 25px;
+  opacity: 0.85;
+}
+
+.button-icon-wide {
+  width: 55px;
+  height: 25px;
+  opacity: 0.85;
+}
+
+.SwitchButton:hover .button-icon,
+.SwitchButton:hover .button-icon-wide {
+  opacity: 1;
+}
+
+/* zoom buttons */
+#ZoomIn,
+#ZoomOut {
+  width: 30px;
+  height: 30px;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+}
+
+#ZoomIn {
+  background-image: url(https://data.dh.gu.se/ui-icons/zoomin_big_white.png);
+}
+
+#ZoomOut {
+  background-image: url(https://data.dh.gu.se/ui-icons/zoomout_big_white.png);
 }

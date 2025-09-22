@@ -4,7 +4,7 @@ import { GLTFLoader } from '../lib/GLTFLoader.js';
 import { DRACOLoader } from '../lib/DRACOLoader.js';
 
 export function createViewer(opts = {}) {
-  const {
+  const { //defaults
     antialias = true,
     powerPreference = 'high-performance',
     pixelRatioCap = 1.5,
