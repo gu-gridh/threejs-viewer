@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <title>3D Model Viewer</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <button id="rotL" title="Rotate Left">⟲</button>
+    <button id="rotR" title="Rotate Right">⟳</button>
+
+    <button id="zoomIn" title="Zoom In">＋</button>
+    <button id="zoomOut" title="Zoom Out">－</button>
+
+    <button id="fit" title="Fit to View">Fit</button>
+    <button id="reset" title="Reset">Reset</button>
+    <button id="auto" title="Toggle Auto-Rotate">Auto</button>
+  </div>
+
+  <div id="app"></div>
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/ui.js"></script>
+</body>
+
+</html>
