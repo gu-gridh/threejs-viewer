@@ -53,7 +53,7 @@ export function createViewer(opts = {}) {
   camera.position.set(...cameraPos);
 
   //lighting
-if (light) {
+  if (light) {
     const dir = new THREE.DirectionalLight(light.color ?? 0xffffff, light.intensity ?? 0.05);
     const [lx, ly, lz] = light.position ?? [5, 10, 7];
     dir.position.set(lx, ly, lz);
@@ -78,7 +78,7 @@ if (light) {
       requestAnimationFrame(render);
     }
   }
-  
+
   const doAndRender = (fn) => { fn(); controls.update(); requestRender(); };
 
   controls.addEventListener('change', requestRender); //only render when something moves not every frame
@@ -148,12 +148,12 @@ if (light) {
     frameObject: (obj = root) => { if (obj) { frameObject(obj); requestRender(); } },
     requestRender,
     doAndRender,
-    rotateLeft:  (rad)    => doAndRender(() => controls.rotateLeft(rad)),
-    rotateRight: (rad)    => doAndRender(() => controls.rotateLeft(-rad)),
-    zoomIn:      (factor) => doAndRender(() => controls.dollyIn(factor)),
-    zoomOut:     (factor) => doAndRender(() => controls.dollyOut(factor)),
-    reset:                () => doAndRender(() => controls.reset()),
-    toggleAuto:           () => doAndRender(() => { controls.autoRotate = !controls.autoRotate; }),
-    dispose:              () => { draco?.dispose?.(); renderer.dispose(); },
+    rotateLeft: (rad) => doAndRender(() => controls.rotateLeft(rad)),
+    rotateRight: (rad) => doAndRender(() => controls.rotateLeft(-rad)),
+    zoomIn: (factor) => doAndRender(() => controls.dollyIn(factor)),
+    zoomOut: (factor) => doAndRender(() => controls.dollyOut(factor)),
+    reset: () => doAndRender(() => controls.reset()),
+    toggleAuto: () => doAndRender(() => { controls.autoRotate = !controls.autoRotate; }),
+    dispose: () => { draco?.dispose?.(); renderer.dispose(); },
   };
 }
