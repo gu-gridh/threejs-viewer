@@ -10,15 +10,28 @@ const Z_CLICK = 1.01;
 const Z_HOLD = 1.01;
 
 //holding down a button...
-function hold(el, fnPerFrame) {
-    let raf = null;
-    const start = () => { if (raf) return; const tick = () => { fnPerFrame(); viewer.requestRender(); raf = requestAnimationFrame(tick); }; tick(); };
-    const stop = () => { if (raf) cancelAnimationFrame(raf); raf = null; };
-    el?.addEventListener('mousedown', start);
-    el?.addEventListener('mouseup', stop);
-    el?.addEventListener('mouseleave', stop);
-    el?.addEventListener('touchstart', (e) => { e.preventDefault(); start(); }, { passive: false });
-    el?.addEventListener('touchend', stop);
+function hold(el, step) {
+  let intervalId = null;
+
+  const start = () => {
+    if (intervalId) return;
+    intervalId = setInterval(() => {
+      step();
+      viewer.requestRender();
+    }, 16);
+  };
+
+  const stop = () => {
+    if (!intervalId) return;
+    clearInterval(intervalId);
+    intervalId = null;
+  };
+
+  el?.addEventListener('mousedown', start);
+  el?.addEventListener('mouseup', stop);
+  el?.addEventListener('mouseleave', stop);
+  el?.addEventListener('touchstart', (e) => { e.preventDefault(); start(); }, { passive: false });
+  el?.addEventListener('touchend', stop);
 }
 
 //rotate
