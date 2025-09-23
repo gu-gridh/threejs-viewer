@@ -9,9 +9,11 @@ export function createViewer(opts = {}) {
     powerPreference = 'high-performance',
     pixelRatioCap = 1.5,
     background = 0x2d2d2d,
+    fog = null,
+    grid = false,
     fov = 50, near = 0.1, far = 2000,
     cameraPos = [2, 1.5, 3],
-    light = { color: 0xffffff, intensity: 0.05, position: [5, 10, 7] },
+    light = null,
     dracoPath = null,
     dracoWorkers = 1,
     modelUrl = null,
@@ -27,6 +29,21 @@ export function createViewer(opts = {}) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(background);
 
+  if (fog) {
+    scene.fog = new THREE.Fog(
+      fog.color ?? background,
+      fog.near ?? 5,
+      fog.far ?? 20
+    );
+  }
+
+  if (grid === true) {
+    const helper = new THREE.GridHelper(10, 10, 0x444444, 0x222222);
+    helper.material.transparent = true;
+    helper.material.opacity = 0.6;
+    scene.add(helper);
+  }
+
   const camera = new THREE.PerspectiveCamera(
     fov,
     window.innerWidth / window.innerHeight,
@@ -36,7 +53,7 @@ export function createViewer(opts = {}) {
   camera.position.set(...cameraPos);
 
   //lighting
-  if (light) {
+if (light) {
     const dir = new THREE.DirectionalLight(light.color ?? 0xffffff, light.intensity ?? 0.05);
     const [lx, ly, lz] = light.position ?? [5, 10, 7];
     dir.position.set(lx, ly, lz);
@@ -61,7 +78,7 @@ export function createViewer(opts = {}) {
       requestAnimationFrame(render);
     }
   }
-
+  
   const doAndRender = (fn) => { fn(); controls.update(); requestRender(); };
 
   controls.addEventListener('change', requestRender); //only render when something moves not every frame
@@ -131,12 +148,12 @@ export function createViewer(opts = {}) {
     frameObject: (obj = root) => { if (obj) { frameObject(obj); requestRender(); } },
     requestRender,
     doAndRender,
-    rotateLeft: (rad) => doAndRender(() => controls.rotateLeft(rad)),
-    rotateRight: (rad) => doAndRender(() => controls.rotateLeft(-rad)),
-    zoomIn: (factor) => doAndRender(() => controls.dollyIn(factor)),
-    zoomOut: (factor) => doAndRender(() => controls.dollyOut(factor)),
-    reset: () => doAndRender(() => controls.reset()),
-    toggleAuto: () => doAndRender(() => { controls.autoRotate = !controls.autoRotate; }),
-    dispose: () => { draco?.dispose?.(); renderer.dispose(); },
+    rotateLeft:  (rad)    => doAndRender(() => controls.rotateLeft(rad)),
+    rotateRight: (rad)    => doAndRender(() => controls.rotateLeft(-rad)),
+    zoomIn:      (factor) => doAndRender(() => controls.dollyIn(factor)),
+    zoomOut:     (factor) => doAndRender(() => controls.dollyOut(factor)),
+    reset:                () => doAndRender(() => controls.reset()),
+    toggleAuto:           () => doAndRender(() => { controls.autoRotate = !controls.autoRotate; }),
+    dispose:              () => { draco?.dispose?.(); renderer.dispose(); },
   };
 }
