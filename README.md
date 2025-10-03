@@ -14,7 +14,7 @@ This project is a 3D viewer built using [Three.js](https://threejs.org/). Option
 4. Click the extensions tab on the left toolbar.
 ![Open extensions](./assets/Readme/screenshot4.png)
 
-5. Install the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) plug-in.
+5. Search for and then install the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) plug-in.
 ![Install plugin](./assets/Readme/screenshot5.png)
 
 6. Right-click on the `index.html` file and select **Open with Live Server**.
