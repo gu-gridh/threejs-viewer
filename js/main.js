@@ -10,10 +10,11 @@ export function createViewer(opts = {}) {
     pixelRatioCap = 1.5,
     background = 0x2d2d2d,
     fog = null,
-    grid = false,
+    grid = true,
     fov = 50, near = 0.1, far = 2000,
     cameraPos = [2, 1.5, 3],
-    light = null,
+    directionalLight = null,
+    ambientLight = null,
     dracoPath = null,
     dracoWorkers = 1,
     modelUrl = null,
@@ -53,11 +54,16 @@ export function createViewer(opts = {}) {
   camera.position.set(...cameraPos);
 
   //lighting
-  if (light) {
-    const dir = new THREE.DirectionalLight(light.color ?? 0xffffff, light.intensity ?? 0.05);
-    const [lx, ly, lz] = light.position ?? [5, 10, 7];
+  if (directionalLight) {
+    const dir = new THREE.DirectionalLight(directionalLight.color ?? 0xffffff, directionalLight.intensity ?? 0.05);
+    const [lx, ly, lz] = dirlight.position ?? [5, 10, 7];
     dir.position.set(lx, ly, lz);
     scene.add(dir);
+  }
+
+    if (ambientLight) {
+    const amb = new THREE.AmbientLight(ambientLight.color ?? 0xffffff, ambientLight.intensity ?? 0.00);
+    scene.add(amb);
   }
 
   //controls

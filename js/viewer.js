@@ -14,18 +14,19 @@ const options = {
     // camera
     fov: 50,
     near: 0.1,
-    far: 2000,
-    cameraPos: [2, 1.5, 3],
+    far: 1000,
+    cameraPos: [3, 2, 3],
 
     // light
-    light: { color: 0xffffff, intensity: 0.05, position: [5, 10, 7] },
+    //directionalLight: { color: 0xffffff, intensity: 3.0, position: [5, 10, 7] },
+    ambientLight: { color: 0xffffff, intensity: 3},
 
     // loaders
     dracoPath: '../lib/draco/',
     dracoWorkers: 1,
 
     //model to load
-    modelUrl: '../model/shelter.glb',
+    modelUrl: '../models/capital.glb',
 };
 
 export const viewer = createViewer(options);
