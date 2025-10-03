@@ -102,7 +102,7 @@ export function createViewer(opts = {}) {
   //auto-rotate
   let autoRaf = 0;
   function spin() {
-    if (!controls.autoRotate || document.hidden) { autoRaf = 0; return; }
+    if (!controls.autoRotate) { autoRaf = 0; return; }
     controls.update();
     renderer.render(scene, camera);
     autoRaf = requestAnimationFrame(spin);
