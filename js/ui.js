@@ -1,7 +1,6 @@
 import { viewer } from './viewer.js';
 
 const $ = (id) => document.getElementById(id);
-let auto = false;
 
 const THREE = viewer.three;
 const ROT_STEP = THREE.MathUtils.degToRad(0.8);
@@ -15,10 +14,8 @@ function hold(el, step) {
 
   const start = () => {
     if (intervalId) return;
-    intervalId = setInterval(() => {
-      step();
-      viewer.requestRender();
-    }, 16);
+    intervalId = setInterval(step, 16);
+
   };
 
   const stop = () => {
@@ -33,6 +30,9 @@ function hold(el, step) {
   el?.addEventListener('touchstart', (e) => { e.preventDefault(); start(); }, { passive: false });
   el?.addEventListener('touchend', stop);
 }
+
+//wireframe
+$('wire')?.addEventListener('click', () => viewer.toggleWireframe());
 
 //rotate
 $('rotL')?.addEventListener('click', () => viewer.rotateLeft(ROT_NUDGE));
@@ -49,4 +49,4 @@ hold($('ZoomOut'), () => viewer.zoomOut(Z_HOLD));
 //fit, reset, auto
 $('fit')?.addEventListener('click', () => viewer.frameObject());
 $('reset')?.addEventListener('click', () => viewer.reset());
-$('auto')?.addEventListener('click', () => { auto = !auto; viewer.toggleAuto(); });
+$('auto')?.addEventListener('click', () => viewer.toggleAuto());

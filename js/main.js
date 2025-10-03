@@ -56,12 +56,12 @@ export function createViewer(opts = {}) {
   //lighting
   if (directionalLight) {
     const dir = new THREE.DirectionalLight(directionalLight.color ?? 0xffffff, directionalLight.intensity ?? 0.05);
-    const [lx, ly, lz] = dirlight.position ?? [5, 10, 7];
+    const [lx, ly, lz] = directionalLight.position ?? [5, 10, 7];
     dir.position.set(lx, ly, lz);
     scene.add(dir);
   }
 
-    if (ambientLight) {
+  if (ambientLight) {
     const amb = new THREE.AmbientLight(ambientLight.color ?? 0xffffff, ambientLight.intensity ?? 0.00);
     scene.add(amb);
   }
@@ -85,7 +85,7 @@ export function createViewer(opts = {}) {
     }
   }
 
-  const doAndRender = (fn) => { fn(); controls.update(); requestRender(); };
+  const doAndRender = (fn) => { fn(); requestRender(); };
 
   controls.addEventListener('change', requestRender); //only render when something moves not every frame
   window.addEventListener('resize', () => {
@@ -98,6 +98,27 @@ export function createViewer(opts = {}) {
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) requestRender();
   });
+
+  //auto-rotate
+  let autoRaf = 0;
+  function spin() {
+    if (!controls.autoRotate || document.hidden) { autoRaf = 0; return; }
+    controls.update();
+    renderer.render(scene, camera);
+    autoRaf = requestAnimationFrame(spin);
+  }
+
+  //toggle wireframe
+  let wireframeOn = false;
+  function setWireframe(obj, enabled) {
+    obj.traverse((o) => {
+      if (!o.isMesh) return;
+      const mats = Array.isArray(o.material) ? o.material : [o.material];
+      for (const m of mats) {
+        if (m && typeof m.wireframe === "boolean") m.wireframe = enabled;
+      }
+    });
+  }
 
   //fit object to view
   function frameObject(obj) {
@@ -159,7 +180,19 @@ export function createViewer(opts = {}) {
     zoomIn: (factor) => doAndRender(() => controls.dollyIn(factor)),
     zoomOut: (factor) => doAndRender(() => controls.dollyOut(factor)),
     reset: () => doAndRender(() => controls.reset()),
-    toggleAuto: () => doAndRender(() => { controls.autoRotate = !controls.autoRotate; }),
+    toggleAuto: () => {
+      controls.autoRotate = !controls.autoRotate;
+      if (controls.autoRotate) {
+        if (!autoRaf) autoRaf = requestAnimationFrame(spin);
+      } else {
+        requestRender();
+      }
+    },
     dispose: () => { draco?.dispose?.(); renderer.dispose(); },
+    toggleWireframe: (on = !wireframeOn, obj = root ?? scene) =>
+      doAndRender(() => {
+        wireframeOn = on;
+        if (obj) setWireframe(obj, wireframeOn);
+      }),
   };
 }
