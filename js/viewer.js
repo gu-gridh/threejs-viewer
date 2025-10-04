@@ -15,7 +15,7 @@ const options = {
     fov: 45,
     near: 0.1,
     far: 1000,
-    cameraPos: [1, 0.5, 1.0],
+    cameraPos: [1, 0.8, 1.0],
 
     // light
     //directionalLight: { color: 0xffffff, intensity: 3.0, position: [5, 10, 7] },

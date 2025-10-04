@@ -104,10 +104,13 @@ canvas {
   user-select: none;
   color: white;
   font-family: "Oswald", sans-serif !important;
+  opacity:0.8;
+  margin-right:5px;
 }
 
 .SwitchButton:hover {
   transform: scale(1.05);
+  opacity:1.0;
 }
 
 /* icon imgs */
@@ -119,7 +122,7 @@ canvas {
 
 .button-icon-wide {
   width: 55px;
-  height: 25px;
+  height: 30px;
   opacity: 0.85;
 }
 
@@ -145,4 +148,33 @@ canvas {
 
 #ZoomOut {
   background-image: url(https://data.dh.gu.se/ui-icons/zoomout_big_white.png);
+}
+
+.auto-rotate{
+  width: 33px;
+  height: 33px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+  background-image: url(https://data.dh.gu.se/ui-icons/autorotate_white.svg);
+}
+
+.auto-rotate-active{
+   background-image: url(https://data.dh.gu.se/ui-icons/autorotate_active.svg);
+  opacity:1;
+  }
+
+.wireframe{
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url(https://data.dh.gu.se/ui-icons/wireframe_white.svg);
+}
+
+.wireframe-active{
+   background-image: url(https://data.dh.gu.se/ui-icons/wireframe_active.svg);
+   opacity:1;
 }
