@@ -58,11 +58,11 @@ canvas {
   display: flex;
   align-items: center;
   justify-content: center;
-  opacity:0.8;
+  opacity: 0.8;
 }
 
 .rotate-right,
-.rotate-left{
+.rotate-left {
   transition: transform 0.15s ease;
   background-color: rgba(0, 0, 0, 0.8);
   width: 40px;
@@ -73,11 +73,11 @@ canvas {
   overflow: hidden;
 }
 
-.rotate-right{
- background-image: url(https://data.dh.gu.se/ui-icons/rotate_right_white.png);
+.rotate-right {
+  background-image: url(https://data.dh.gu.se/ui-icons/rotate_right_white.png);
 }
 
-.rotate-left{
+.rotate-left {
   background-image: url(https://data.dh.gu.se/ui-icons/rotate_left_white.png);
 
 }
@@ -86,7 +86,7 @@ canvas {
   transform: scale(1.1);
 }
 
-.toolButtonVertical:hover{
+.toolButtonVertical:hover {
   opacity: 1;
 }
 
@@ -104,13 +104,13 @@ canvas {
   user-select: none;
   color: white;
   font-family: "Oswald", sans-serif !important;
-  opacity:0.8;
-  margin-right:5px;
+  opacity: 0.8;
+  margin-right: 5px;
 }
 
 .SwitchButton:hover {
   transform: scale(1.05);
-  opacity:1.0;
+  opacity: 1.0;
 }
 
 /* icon imgs */
@@ -150,7 +150,7 @@ canvas {
   background-image: url(https://data.dh.gu.se/ui-icons/zoomout_big_white.png);
 }
 
-.auto-rotate{
+.auto-rotate {
   width: 33px;
   height: 33px;
   background-size: contain;
@@ -158,23 +158,25 @@ canvas {
   background-position: center;
   overflow: hidden;
   background-image: url(https://data.dh.gu.se/ui-icons/autorotate_white.svg);
+  opacity: 0.6;
 }
 
-.auto-rotate-active{
-   background-image: url(https://data.dh.gu.se/ui-icons/autorotate_active.svg);
-  opacity:1;
-  }
+.auto-rotate-active {
+  background-image: url(https://data.dh.gu.se/ui-icons/autorotate_active.svg);
+  opacity: 1;
+}
 
-.wireframe{
+.wireframe {
   width: 30px;
   height: 30px;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   background-image: url(https://data.dh.gu.se/ui-icons/wireframe_white.svg);
+  opacity: 0.6;
 }
 
-.wireframe-active{
-   background-image: url(https://data.dh.gu.se/ui-icons/wireframe_active.svg);
-   opacity:1;
+.wireframe-active {
+  background-image: url(https://data.dh.gu.se/ui-icons/wireframe_active.svg);
+  opacity: 1;
 }
