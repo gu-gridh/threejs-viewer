@@ -18,6 +18,9 @@ export function createViewer(opts = {}) {
     dracoPath = null,
     dracoWorkers = 1,
     modelUrl = null,
+    rotationX = 0,
+    rotationY = 0,
+    rotationZ = 0,
   } = opts;
 
   //rendering
@@ -139,6 +142,13 @@ export function createViewer(opts = {}) {
     controls.update();
   }
 
+  //Rotation of object
+  function objectRotation(root) {
+    root.rotateX(Math.PI / 180 * rotationX);
+    root.rotateY(Math.PI / 180 * rotationY);
+    root.rotateZ(Math.PI / 180 * rotationZ);
+  }
+
   //loading
   const loader = new GLTFLoader();
   let draco = null;
@@ -157,6 +167,7 @@ export function createViewer(opts = {}) {
         root = gltf.scene;
         scene.add(root);
         frameObject(root);
+        objectRotation(root);
         requestRender();
       },
       undefined,

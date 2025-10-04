@@ -17,7 +17,12 @@ const options = {
     far: 1000,
     cameraPos: [1, 0.8, 1.0],
 
-    // light
+    // object rotation in degrees
+    rotationX: 0,
+    rotationY: 180,
+    rotationZ: 0,
+
+    // lights
     //directionalLight: { color: 0xffffff, intensity: 3.0, position: [5, 10, 7] },
     ambientLight: { color: 0xffffff, intensity: 3},
 
