@@ -8,7 +8,7 @@ const options = {
 
     // scene
     background: 0x2d2d2d,
-    //fog: { color: 0x2d2d2d, near: 5, far: 20 },
+    //fog: { color: 0x2d2d2d, near: 0, far: 10 },
     grid: true,
 
     // camera
