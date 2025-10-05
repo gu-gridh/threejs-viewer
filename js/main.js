@@ -12,7 +12,7 @@ export function createViewer(opts = {}) {
     fog = null,
     grid = true,
     fov = 45, near = 0.1, far = 1000,
-    cameraPos = [1, 0.5, 1],
+    cameraPosition = [1, 1, 1],
     directionalLight = null,
     ambientLight = null,
     dracoPath = null,
@@ -54,7 +54,7 @@ export function createViewer(opts = {}) {
     near,
     far
   );
-  camera.position.set(...cameraPos);
+  camera.position.set(...cameraPosition);
 
   //lighting
   if (directionalLight) {
@@ -132,11 +132,11 @@ export function createViewer(opts = {}) {
 
     const fitH = maxDim / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2));
     const fitW = fitH / camera.aspect;
-    const dist = 1.8 * Math.max(fitH, fitW);
+    const dist = 1 * Math.max(fitH, fitW);
 
     const dirVec = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
     camera.position.copy(center).addScaledVector(dirVec, dist);
-    camera.position.set(...cameraPos);
+    camera.position.set(...cameraPosition);
     controls.target.copy(center); //orbit controls spin around model
     camera.updateProjectionMatrix();
     controls.update();
