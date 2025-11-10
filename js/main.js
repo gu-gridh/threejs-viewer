@@ -21,6 +21,8 @@ export function createViewer(opts = {}) {
     rotationX = 0,
     rotationY = 0,
     rotationZ = 0,
+    autoScale = true,
+    autoScaleTarget = 2,
   } = opts;
 
   //rendering
@@ -125,19 +127,22 @@ export function createViewer(opts = {}) {
 
   //fit object to view
   function frameObject(obj) {
+    obj.updateWorldMatrix(true, true);
+
     const box = new THREE.Box3().setFromObject(obj);
     const size = box.getSize(new THREE.Vector3());
     const center = box.getCenter(new THREE.Vector3());
     const maxDim = Math.max(size.x, size.y, size.z);
+    if (!isFinite(maxDim) || maxDim === 0) return;
 
     const fitH = maxDim / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2));
     const fitW = fitH / camera.aspect;
-    const dist = 1 * Math.max(fitH, fitW);
+    const dist = Math.max(fitH, fitW);
 
-    const dirVec = new THREE.Vector3().subVectors(camera.position, controls.target).normalize();
-    camera.position.copy(center).addScaledVector(dirVec, dist);
-    camera.position.set(...cameraPosition);
-    controls.target.copy(center); //orbit controls spin around model
+    const dir = camera.position.clone().sub(center).normalize();
+    camera.position.copy(center).addScaledVector(dir, dist);
+
+    controls.target.copy(center);
     camera.updateProjectionMatrix();
     controls.update();
   }
@@ -147,6 +152,20 @@ export function createViewer(opts = {}) {
     root.rotateX(Math.PI / 180 * rotationX);
     root.rotateY(Math.PI / 180 * rotationY);
     root.rotateZ(Math.PI / 180 * rotationZ);
+  }
+
+  function normalizeObject(obj) {
+    const box = new THREE.Box3().setFromObject(obj);
+    const size = box.getSize(new THREE.Vector3());
+    const maxDim = Math.max(size.x, size.y, size.z);
+    if (!isFinite(maxDim) || maxDim === 0) return;
+
+    const scale = autoScaleTarget / maxDim;
+    obj.scale.multiplyScalar(scale);
+
+    box.setFromObject(obj);
+    const center = box.getCenter(new THREE.Vector3());
+    obj.position.sub(center);
   }
 
   //loading
@@ -165,9 +184,12 @@ export function createViewer(opts = {}) {
       modelUrl,
       (gltf) => {
         root = gltf.scene;
+        if (autoScale) {
+          normalizeObject(root);
+        }
+        objectRotation(root);
         scene.add(root);
         frameObject(root);
-        objectRotation(root);
         requestRender();
       },
       undefined,

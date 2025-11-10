@@ -24,7 +24,7 @@ const options = {
     fov: 45,
     near: 0.1,
     far: 1000,
-    cameraPosition: [1, 0.8, 1.0],
+    cameraPosition: [1, 0.8, 1.0], //x, y, z
 
     // loaders
     dracoPath: '../lib/draco/',
